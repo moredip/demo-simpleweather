@@ -8,6 +8,8 @@ gunicorn = "*"
 psycopg2 = "*"
 django = "*"
 python-environ = "*"
+pytest-django = "*"
+noaa-sdk = "*"
 
 [dev-packages]
 

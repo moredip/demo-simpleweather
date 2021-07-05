@@ -23,7 +23,9 @@ env = environ.Env(
     DEBUG=(bool, False),
     SECRET_KEY=(str,'django-insecure'),
 )
-environ.Env.read_env()
+
+# not needed for now
+# environ.Env.read_env()
 
 
 # Quick-start development settings - unsuitable for production
