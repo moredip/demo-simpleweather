@@ -19,5 +19,6 @@ from .simpleweather import views
 
 
 urlpatterns = [
-    path('', views.root, name="root")
+    path('', views.root, name="root"),
+    path('zip/<zipcode>/temp', views.temp_at_zip, name="temp_at_zip"),
 ]

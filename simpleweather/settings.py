@@ -42,6 +42,7 @@ ALLOWED_HOSTS = ['example-simpleweather.herokuapp.com','localhost','127.0.0.1']
 INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

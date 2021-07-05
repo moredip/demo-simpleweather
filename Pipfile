@@ -10,6 +10,7 @@ django = "*"
 python-environ = "*"
 pytest-django = "*"
 noaa-sdk = "*"
+django-extensions = "*"
 
 [dev-packages]
 
