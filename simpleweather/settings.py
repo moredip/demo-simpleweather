@@ -13,19 +13,24 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from os import getenv
 from pathlib import Path
 
-import dj_database_url
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+env = environ.Env(
+    DEBUG=(bool, False),
+    SECRET_KEY=(str,'django-insecure'),
+)
+environ.Env.read_env()
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-SECRET_KEY = getenv('SECRET_KEY', 'django-insecure')
-
-
-DEBUG = getenv("DEBUG", 'false').lower() in ('true', '1', 't')
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env('DEBUG')
 
 
 ALLOWED_HOSTS = ['example-simpleweather.herokuapp.com','localhost','127.0.0.1']
@@ -63,7 +68,7 @@ WSGI_APPLICATION = 'simpleweather.wsgi.application'
 
 
 DATABASES = {
-  'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+    'default': env.db()
 }
 
 # Internationalization
