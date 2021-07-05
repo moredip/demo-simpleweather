@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 gunicorn = "*"
 dj-database-url = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
