@@ -1,10 +1,14 @@
+import beeline
 from noaa_sdk import NOAA
 
 class WeatherClient:
     def __init__(self):
         self._noaa = NOAA()
 
+    @beeline.traced(name='weather_client/get_current_temp_at_zipcode')
     def get_current_temp_at_zipcode(self,zip):
+        beeline.add_context_field("zip", zip)
+
         observations = self._noaa.get_observations(zip,'US')
         first_observation = next(observations,None)
         if( not first_observation ):

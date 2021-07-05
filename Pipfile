@@ -9,8 +9,9 @@ psycopg2 = "*"
 django = "*"
 python-environ = "*"
 pytest-django = "*"
-noaa-sdk = "*"
 django-extensions = "*"
+honeycomb-beeline = "*"
+noaa-sdk = {editable = true, git = "https://github.com/paulokuong/noaa.git"}
 
 [dev-packages]
 

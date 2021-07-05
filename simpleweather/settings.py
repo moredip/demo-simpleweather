@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from os import getenv
 from pathlib import Path
 
 import environ
@@ -27,13 +26,8 @@ env = environ.Env(
 # not needed for now
 # environ.Env.read_env()
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
-
 
 ALLOWED_HOSTS = ['example-simpleweather.herokuapp.com','localhost','127.0.0.1']
 
@@ -47,6 +41,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
+    'beeline.middleware.django.HoneyMiddleware',
 ]
 
 ROOT_URLCONF = 'simpleweather.urls'
