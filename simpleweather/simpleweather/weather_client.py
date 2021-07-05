@@ -7,4 +7,7 @@ class WeatherClient:
     def get_current_temp_at_zipcode(self,zip):
         observations = self._noaa.get_observations(zip,'US')
         first_observation = next(observations,None)
+        if( not first_observation ):
+            return None
+
         return first_observation['temperature']['value']
