@@ -15,5 +15,9 @@ Including another URLconf
 """
 from django.urls import path
 
+from .simpleweather import views
+
+
 urlpatterns = [
+    path('', views.root, name="root")
 ]
