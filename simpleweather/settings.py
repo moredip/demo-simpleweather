@@ -17,14 +17,12 @@ import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 env = environ.Env(
     DEBUG=(bool, False),
     SECRET_KEY=(str,'django-insecure'),
 )
 
-# not needed for now
-# environ.Env.read_env()
+environ.Env.read_env(str(BASE_DIR/'.env'))
 
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
@@ -68,6 +66,9 @@ WSGI_APPLICATION = 'simpleweather.wsgi.application'
 DATABASES = {
     'default': env.db()
 }
+
+CELERY_BROKER_URL = env('REDIS_URL')
+CELERY_RESULT_BACKEND = env('REDIS_URL')
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

@@ -1,8 +1,6 @@
 from django.http import HttpResponse
 
-from .weather_client import WeatherClient
-
-weather_client = WeatherClient()
+from .tasks import task_fetch_temp_at_zip, task_dummy
 
 def root(request):
     return HttpResponse("""
@@ -17,5 +15,13 @@ def root(request):
     """)
 
 def temp_at_zip(request, zipcode):
-    temp = weather_client.get_current_temp_at_zipcode(zipcode)
+    result = task_fetch_temp_at_zip.delay(zipcode)
+    temp = result.get()
+
     return HttpResponse(f"current temp at {zipcode} is {temp}")
+
+def healthz(request):
+    result = task_dummy.delay(40,2)
+    assert result.get() == 42
+
+    return HttpResponse('OK')

@@ -7,11 +7,13 @@ name = "pypi"
 gunicorn = "*"
 psycopg2 = "*"
 django = "*"
-python-environ = "*"
 pytest-django = "*"
 django-extensions = "*"
 honeycomb-beeline = "*"
 noaa-sdk = {editable = true, git = "https://github.com/paulokuong/noaa.git"}
+redis = "*"
+celery = "*"
+django-environ = "*"
 
 [dev-packages]
 
