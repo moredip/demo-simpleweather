@@ -1,6 +1,8 @@
 import os
 
-from celery import Celery
+from celery import Celery, signals
+
+from .honeycomb import beeline_init
 
 # Set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'simpleweather.settings')
@@ -16,6 +18,29 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 # Load task modules from all registered Django apps.
 app.autodiscover_tasks()
 
-@app.task(bind=True)
-def debug_task(self):
-    print(f'Request: {self.request!r}')
+
+@signals.worker_process_init.connect
+def initialize_honeycomb(**kwargs):
+    beeline_init()
+
+
+# start a trace with the start of each task
+@signals.task_prerun.connect
+def start_celery_trace(task_id, task, args, kwargs, **rest_args):
+    queue_name = task.request.delivery_info.get("exchange", None)
+    task.request.trace = beeline.start_trace(
+        context={
+            "name": "celery",
+            "celery.task_id": task_id,
+            "celery.args": args,
+            "celery.kwargs": kwargs,
+            "celery.task_name": task.name,
+            "celery.queue": queue_name,
+        }
+    )
+
+# finish and send the trace at the end of each task
+@signals.task_postrun.connect
+def end_celery_trace(task, state, **kwargs):
+    beeline.add_field("celery.status", state)
+    beeline.finish_trace(task.request.trace)
