@@ -18,8 +18,10 @@ def root(request):
 def temp_at_zip(request, zipcode):
     # Doing this in a worker then blocking on the result pretty much entirely defeats the point of doing it in the worker.
     # This is unnecessarily contrived, and only done in order to demonstrate observability.
-    result = task_fetch_temp_at_zip.delay(zipcode)
-    temp = result.get()
+    # result = task_fetch_temp_at_zip.delay(zipcode)
+    # temp = result.get()
+
+    temp = task_fetch_temp_at_zip(zipcode)
 
     return HttpResponse(f"current temp at {zipcode} is {temp}")
 
