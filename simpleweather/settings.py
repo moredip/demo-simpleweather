@@ -39,7 +39,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
-    'beeline.middleware.django.HoneyMiddleware',
 ]
 
 ROOT_URLCONF = 'simpleweather.urls'

@@ -9,7 +9,6 @@ psycopg2 = "*"
 django = "*"
 pytest-django = "*"
 django-extensions = "*"
-honeycomb-beeline = "*"
 noaa-sdk = {editable = true, git = "https://github.com/paulokuong/noaa.git"}
 redis = "*"
 celery = "*"
