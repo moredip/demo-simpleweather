@@ -20,6 +20,7 @@ opentelemetry-instrumentation-requests = "*"
 opentelemetry-instrumentation-django = "*"
 opentelemetry-instrumentation-psycopg2 = "*"
 opentelemetry-instrumentation-celery = "*"
+bpython = "*"
 
 [dev-packages]
 

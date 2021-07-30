@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import datetime
 
 import environ
 
@@ -20,12 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(
     DEBUG=(bool, False),
     SECRET_KEY=(str,'django-insecure'),
+    TEMPERATURE_CACHE_TTL_SECS=(int,60),
 )
 
 environ.Env.read_env(str(BASE_DIR/'.env'))
 
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
+TEMPERATURE_CACHE_TTL = datetime.timedelta(seconds=env('TEMPERATURE_CACHE_TTL_SECS'))
 
 ALLOWED_HOSTS = ['example-simpleweather.herokuapp.com','localhost','127.0.0.1']
 
