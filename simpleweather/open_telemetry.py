@@ -3,7 +3,9 @@ import environ
 
 from opentelemetry import trace
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.instrumentation.celery import CeleryInstrumentor
 from opentelemetry.instrumentation.django import DjangoInstrumentor
+from opentelemetry.instrumentation.psycopg2 import Psycopg2Instrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
@@ -53,5 +55,7 @@ def otel_init():
     # register trace provider
     trace.set_tracer_provider(trace_provider)
 
+    CeleryInstrumentor().instrument()
     DjangoInstrumentor().instrument()
+    Psycopg2Instrumentor().instrument()
     RequestsInstrumentor().instrument()

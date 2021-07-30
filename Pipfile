@@ -19,6 +19,8 @@ opentelemetry-sdk = "*"
 opentelemetry-exporter-otlp-proto-grpc = "*"
 opentelemetry-instrumentation-requests = "*"
 opentelemetry-instrumentation-django = "*"
+opentelemetry-instrumentation-psycopg2 = "*"
+opentelemetry-instrumentation-celery = "*"
 
 [dev-packages]
 
