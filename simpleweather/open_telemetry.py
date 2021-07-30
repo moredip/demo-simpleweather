@@ -14,15 +14,14 @@ from grpc import ssl_channel_credentials
 
 SERVICE_NAME='simpleweather'
 
-env = environ.Env(
-    HONEYCOMB_API_KEY=(str),
-    HONEYCOMB_DATASET=(str,'simpleweather-nonprod')
-)
-HONEYCOMB_API_KEY = env('HONEYCOMB_API_KEY')
-HONEYCOMB_DATASET = env('HONEYCOMB_DATASET')
-
-
 def otel_init():
+    env = environ.Env(
+        HONEYCOMB_API_KEY=(str),
+        HONEYCOMB_DATASET=(str,'simpleweather-nonprod')
+    )
+    HONEYCOMB_API_KEY = env('HONEYCOMB_API_KEY')
+    HONEYCOMB_DATASET = env('HONEYCOMB_DATASET')
+
     print(f'otel initialization in process pid {os.getpid()}. Dataset is `{HONEYCOMB_DATASET}`')
 
     # resource describes app-level information that will be added to all spans

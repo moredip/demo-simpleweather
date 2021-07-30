@@ -1,6 +1,7 @@
 from opentelemetry import trace
-
 from noaa_sdk import NOAA
+
+from .models import CachedTemperature
 
 tracer = trace.get_tracer(__name__)
 
@@ -21,4 +22,12 @@ class WeatherClient:
             if( not first_observation ):
                 return None
 
-            return first_observation['temperature']['value']
+            temp = first_observation['temperature']['value']
+            self.write_temp_to_cache(zip=zip,temp=temp)
+
+            return temp
+
+    def write_temp_to_cache(self,zip,temp):
+        CachedTemperature.objects.create(zipcode=zip,temperature=temp)
+
+
